@@ -12,9 +12,29 @@ body {
   line-height: 1.5;
 }
 
+ul {
+  list-style-type: none;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  margin-bottom: 10px;
+}
+
 #search-box {
   font: inherit;
   padding: 8px;
   max-width: 320px;
-  margin-bottom: 16px;
+  margin: 30px 0px 16px 40px;
+}
+
+.country-info {
+  margin-left: 40px;
+}
+
+.country-name {
+  font-size: 64px;
 }
