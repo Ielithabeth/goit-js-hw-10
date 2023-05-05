@@ -17,23 +17,21 @@ function onInput() {
   const name = input.value.trim();
   console.log(name);
 
-  clearList();
+  if (name !== '') {
+    clearList();
 
-  fetchCountries(name)
-  .then((countries) => {
-    if (countries.length > 10) {
-        return notifyToManyMatches();
-    } else if (countries.length === 1) {
-        return countryInfo.insertAdjacentHTML("beforeend", createContryInfo(countries))
-    } else if (name === '') {
-      clearList();
-
-      controller.abort();
-    };
-
-    countriesList.insertAdjacentHTML('beforeend', createCountriesList(countries))
-  })
-  .catch(onError);
+    fetchCountries(name)
+    .then((countries) => {
+      if (countries.length > 10) {
+          return notifyToManyMatches();
+      } else if (countries.length === 1) {
+          return countryInfo.insertAdjacentHTML("beforeend", createContryInfo(countries))
+      }
+  
+      countriesList.insertAdjacentHTML('beforeend', createCountriesList(countries))
+    })
+    .catch(onError);
+  }
 }
 
 function clearList() {
@@ -45,7 +43,7 @@ function notifyToManyMatches() {
 }
 
 function createCountriesList(countries) {
-  return markup = countries
+  const markup = countries
   .map(({ name, flags }) => {
     return  `
     <li> <img src="${flags.svg}" alt="${name.official} flag" width="40">
@@ -53,10 +51,12 @@ function createCountriesList(countries) {
     </li>
     `
   }).join('');
+
+  return markup;
 }
 
 function createContryInfo(countries) {
-    return markup = countries.map(({ name, flags, capital, population, languages }) => {
+    const markup = countries.map(({ name, flags, capital, population, languages }) => {
         return `
         <img src="${flags.svg}" alt="${name.official} flag" width="64"> 
         <b class="country-name">${name.official}</b>
@@ -65,6 +65,8 @@ function createContryInfo(countries) {
         <p><b>Languages: </b>${Object.values(languages)}</p>
         `
     }).join('');
+
+   return markup;
 }
 
 function onError(err) {
