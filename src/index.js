@@ -17,9 +17,9 @@ function onInput() {
   const name = input.value.trim();
   console.log(name);
 
-  if (name !== '') {
-    clearList();
+  clearList();
 
+  if (name !== '') {
     fetchCountries(name)
     .then((countries) => {
       if (countries.length > 10) {
